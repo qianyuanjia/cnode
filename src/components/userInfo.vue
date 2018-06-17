@@ -30,7 +30,16 @@
                 <img :src="item.author.avatar_url" alt="head" class="head">
                 <topic-info :topic_id="item.id"></topic-info>
               </div>
-              <span class="topic_title">{{item.title}}</span>
+              <span class="topic_title">
+                <router-link :to="{
+                  name:'detail',
+                  params:{
+                    topic_id:item.id
+                  }
+                }">
+                  {{item.title}}
+                </router-link>
+              </span>
               <span class="reply_time">{{item.last_reply_at | transformReplyTime}}</span>
             </li>
             <li class="topic_item" v-if="userInfo.recent_topics.length === 0">该同学最近没有创建话题</li>
@@ -44,7 +53,16 @@
                 <img :src="item.author.avatar_url" alt="head" class="head">
                 <topic-info :topic_id="item.id"></topic-info>
               </div>
-              <span class="topic_title">{{item.title}}</span>
+              <span class="topic_title">
+                <router-link :to="{
+                  name:'detail',
+                  params:{
+                    topic_id:item.id
+                  }
+                }">
+                  {{item.title}}
+                </router-link>
+              </span>
               <span class="reply_time">{{item.last_reply_at | transformReplyTime}}</span>
             </li>
             <li class="topic_item" v-if="userInfo.recent_replies.length === 0">该同学最近没有参与话题</li>

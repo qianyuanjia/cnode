@@ -63,7 +63,16 @@
         <div class="aside_top">作者其他话题</div>
         <div class="aside_body">
           <ul>
-            <li class="recent_topic_title" v-for="item in userInfo.recent_topics">{{item.title}}</li>
+            <li class="recent_topic_title" v-for="item in userInfo.recent_topics">
+              <router-link :to="{
+                name:'detail',
+                params:{
+                  topic_id:item.id
+                }
+              }">
+                {{item.title}}
+              </router-link>
+            </li>
           </ul>
         </div>
       </div>
@@ -85,6 +94,8 @@
         },
         methods:{
           getPageData(){
+            this.isLoading=true
+            this.topic_id=this.$route.params.topic_id
             this.$http.get(`https://cnodejs.org/api/v1/topic/${this.topic_id}`)
               .then(res=>{
                 this.pageContent=res.data.data
@@ -106,9 +117,12 @@
           }
         },
         beforeMount:function(){
-          this.isLoading=true
-          this.topic_id=this.$route.params.topic_id
           this.getPageData()
+        },
+        watch:{
+          '$route'(to,from){
+            this.getPageData()
+          }
         }
     }
 </script>
@@ -238,5 +252,6 @@
   }
   .reply_content{
     padding-left: 60px;
+    color: #000000;
   }
 </style>
